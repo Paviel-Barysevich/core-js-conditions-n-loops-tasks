@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
 /**
@@ -38,8 +38,11 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  if (a > b && a > c) return a;
+  if (b > a && b > c) return b;
+
+  return c;
 }
 
 /**
@@ -60,8 +63,11 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (queen.x === king.x || queen.y === king.y) return true;
+  if (Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)) return true;
+
+  return false;
 }
 
 /**
@@ -82,8 +88,11 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a + b <= c || b + c <= a || a + c <= b) return false;
+  if (a === b || a === c || b === c) return true;
+
+  return false;
 }
 
 /**
@@ -100,8 +109,87 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  if (num === 0) return 'use decimal number from 1 to 109';
+
+  const firstDigit = num % 10;
+  let roman1 = '';
+  const secondDigit = Math.floor(num / 10);
+  let roman2 = '';
+
+  switch (firstDigit) {
+    case 0:
+      roman1 = '';
+      break;
+    case 1:
+      roman1 = 'I';
+      break;
+    case 2:
+      roman1 = 'II';
+      break;
+    case 3:
+      roman1 = 'III';
+      break;
+    case 4:
+      roman1 = 'IV';
+      break;
+    case 5:
+      roman1 = 'V';
+      break;
+    case 6:
+      roman1 = 'VI';
+      break;
+    case 7:
+      roman1 = 'VII';
+      break;
+    case 8:
+      roman1 = 'VIII';
+      break;
+    case 9:
+      roman1 = 'IX';
+      break;
+    default:
+      return 'use decimal number from 1 to 109';
+  }
+
+  switch (secondDigit) {
+    case 0:
+      return roman1;
+    case 1:
+      roman2 = 'X';
+      break;
+    case 2:
+      roman2 = 'XX';
+      break;
+    case 3:
+      roman2 = 'XXX';
+      break;
+    case 4:
+      roman2 = 'XL';
+      break;
+    case 5:
+      roman2 = 'L';
+      break;
+    case 6:
+      roman2 = 'LX';
+      break;
+    case 7:
+      roman2 = 'LXX';
+      break;
+    case 8:
+      roman2 = 'LXXX';
+      break;
+    case 9:
+      roman2 = 'CX';
+      break;
+    case 10:
+      roman2 = 'C';
+      break;
+    default:
+      return 'use decimal number from 1 to 109';
+  }
+
+  return roman2 + roman1;
 }
 
 /**
@@ -119,8 +207,65 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let str = '';
+
+  for (let i = 0; i < numberStr.length; i += 1) {
+    const sign = numberStr[i];
+    let signName = '';
+
+    switch (sign) {
+      case '-':
+        signName = 'minus';
+        break;
+      case '1':
+        signName = 'one';
+        break;
+      case '2':
+        signName = 'two';
+        break;
+      case '3':
+        signName = 'three';
+        break;
+      case '4':
+        signName = 'four';
+        break;
+      case '5':
+        signName = 'five';
+        break;
+      case '6':
+        signName = 'six';
+        break;
+      case '7':
+        signName = 'seven';
+        break;
+      case '8':
+        signName = 'eight';
+        break;
+      case '9':
+        signName = 'nine';
+        break;
+      case '0':
+        signName = 'zero';
+        break;
+      case '.':
+        signName = 'point';
+        break;
+      case ',':
+        signName = 'point';
+        break;
+      default:
+        signName = '"IDK this sign"';
+    }
+
+    if (str !== '') {
+      str = `${str} ${signName}`;
+    } else {
+      str = signName;
+    }
+  }
+
+  return str;
 }
 
 /**
