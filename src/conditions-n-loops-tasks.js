@@ -280,8 +280,14 @@ function convertNumberToString(numberStr) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  for (let i = 0; i < str.length / 2; i += 1) {
+    if (str[i] !== str[str.length - 1 - i]) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /**
@@ -298,8 +304,14 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 /**
@@ -317,8 +329,17 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  const numString = `${num}`;
+  const digitChar = `${digit}`;
+
+  for (let i = 0; i < numString.length; i += 1) {
+    if (numString[i] === digitChar) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /**
@@ -334,8 +355,28 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  let balanceNumber = 0;
+
+  for (let i = 1; i < arr.length - 1; i += 1) {
+    const curNumber = arr[i];
+
+    for (let j = 0; j < arr.length; j += 1) {
+      if (j <= i) {
+        balanceNumber += arr[j];
+      } else {
+        balanceNumber -= arr[j];
+      }
+    }
+
+    if (curNumber !== balanceNumber) {
+      balanceNumber = 0;
+    } else {
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 /**
@@ -359,8 +400,78 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const spiralMatrix = new Array(size);
+  let count = 1;
+
+  for (let i = 0; i < size; i += 1) {
+    spiralMatrix[i] = new Array(size);
+
+    for (let c = 0; c < size; c += 1) {
+      spiralMatrix[i][c] = 0;
+    }
+  }
+
+  let j = 0;
+  let k = 0;
+  let pathSize = size;
+  let right = 0;
+  let down = 0;
+  let left = 0;
+  let up = 0;
+  let cycleCount = Math.ceil(size / 2);
+
+  while (cycleCount) {
+    for (let i1 = right; i1 < right + pathSize; i1 += 1) {
+      k = i1;
+      if (spiralMatrix[j][k] === 0) {
+        spiralMatrix[j][k] = count;
+        count += 1;
+      } else {
+        break;
+      }
+    }
+    right += 1;
+
+    for (let i2 = down + 1; i2 < down + pathSize; i2 += 1) {
+      j = i2;
+      if (spiralMatrix[j][k] === 0) {
+        spiralMatrix[j][k] = count;
+        count += 1;
+      } else {
+        break;
+      }
+    }
+    down += 1;
+
+    for (let i3 = size - 2 - left; i3 >= left; i3 -= 1) {
+      k = i3;
+      if (spiralMatrix[j][k] === 0) {
+        spiralMatrix[j][k] = count;
+        count += 1;
+      } else {
+        break;
+      }
+    }
+    left += 1;
+
+    for (let i4 = size - 2 - up; i4 >= up; i4 -= 1) {
+      j = i4;
+      if (spiralMatrix[j][k] === 0) {
+        spiralMatrix[j][k] = count;
+        count += 1;
+      } else {
+        j += 1;
+        break;
+      }
+    }
+    up += 1;
+
+    pathSize -= 2;
+    cycleCount -= 1;
+  }
+
+  return spiralMatrix;
 }
 
 /**
@@ -378,8 +489,20 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const m = JSON.stringify(matrix);
+  const clone = JSON.parse(m);
+  const copyMatrix = matrix;
+
+  for (let i = 0; i < clone[0].length; i += 1) {
+    for (let j = 0; j < clone.length; j += 1) {
+      const k = copyMatrix[0].length - 1 - j;
+
+      copyMatrix[i][k] = clone[j][i];
+    }
+  }
+
+  return matrix;
 }
 
 /**
