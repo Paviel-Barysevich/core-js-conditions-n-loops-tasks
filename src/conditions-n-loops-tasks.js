@@ -519,8 +519,18 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const sortedArr = arr;
+
+  for (let i = 0; i < arr.length; i += 1) {
+    for (let j = 0; j < arr.length; j += 1) {
+      if (sortedArr[j] > sortedArr[j + 1]) {
+        [sortedArr[j], sortedArr[j + 1]] = [sortedArr[j + 1], sortedArr[j]];
+      }
+    }
+  }
+
+  return sortedArr;
 }
 
 /**
@@ -540,8 +550,25 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  const stringLength = str.length;
+  let shuffledString = str;
+
+  for (let k = 0; k < iterations; k += 1) {
+    let string = '';
+
+    for (let i = 0; i < stringLength - 1; i += 2) {
+      string += shuffledString[i];
+    }
+
+    for (let j = 1; j < stringLength; j += 2) {
+      string += shuffledString[j];
+    }
+
+    shuffledString = string;
+  }
+
+  return shuffledString;
 }
 
 /**
@@ -561,8 +588,24 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  let nextNumberStr = `${number}`;
+  const sortedDigitsOfNumber = Array.from(nextNumberStr).sort().join('');
+  const numberLength = sortedDigitsOfNumber.length - 2;
+  let sortedDigitsOfNextNumber;
+  let nextNumber = +nextNumberStr;
+
+  do {
+    nextNumber += 1;
+    nextNumberStr = `${nextNumber}`;
+    sortedDigitsOfNextNumber = Array.from(nextNumberStr).sort().join('');
+
+    const nextNumberLength = sortedDigitsOfNextNumber.length - 2;
+
+    if (nextNumberLength > numberLength) return number;
+  } while (sortedDigitsOfNextNumber !== sortedDigitsOfNumber);
+
+  return nextNumber;
 }
 
 module.exports = {
