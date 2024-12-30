@@ -555,17 +555,15 @@ function shuffleChar(str, iterations) {
   let shuffledString = str;
 
   for (let k = 0; k < iterations; k += 1) {
-    let string = '';
+    let stringHead = '';
+    let stringTail = '';
 
-    for (let i = 0; i < stringLength - 1; i += 2) {
-      string += shuffledString[i];
+    for (let i = 1; i < stringLength; i += 2) {
+      stringTail += shuffledString[i];
+      stringHead = shuffledString[stringLength - i - 1] + stringHead;
     }
 
-    for (let j = 1; j < stringLength; j += 2) {
-      string += shuffledString[j];
-    }
-
-    shuffledString = string;
+    shuffledString = stringHead + stringTail;
   }
 
   return shuffledString;
